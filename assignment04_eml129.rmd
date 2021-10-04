@@ -54,13 +54,41 @@ Krusell, Farhad Miri, and Johannes von R¨omer. 2021. “The V-Dem Measurement M
 Variable Analysis for Cross-National and Cross-Temporal Expert-Coded Data”. V-Dem
 Working Paper No. 21. 6th edition. University of Gothenburg: Varieties of Democracy Institute.
 
+```{r import data}
+VDEM <- read_csv("V-Dem-CY-Full+Others-v11.1.csv")
+glimpse(VDEM)
+```
+
 # The Issue: Government Internet Shutdowns
 Governments all over the world have resorted to Internet shutdowns in (often unsuccessful) attempts to quell domestic unrest and even to prevent cheating on national exams since President Lansana Conte first tried this approach in 2007 by ordering all of Guinea's Internet service providers to suspend services in response to domestic protests (Rydzak et al. 2020). Internet shutdowns have negative economic and social impacts and often disproportionately affect the world's most vulnerable populations (https://www.accessnow.org/keepiton/#problem). Comparative government scholars are still seeking to better understand this phenomenon in order to develop policy solutions to combat this problem.  Specifically, under what conditions do states resort to Internet shutdowns?
 
 # The Threat: Government Shutdown Capacity
-
+```{r first graph}
+VDEM %>%
+  filter(year >= 2015) %>%
+  ggplot() +
+  geom_histogram(mapping = 
+                   aes(x= v2smgovshutcap_mean), 
+                 binwidth = 0.1, 
+color = "black", fill= "white") +
+  scale_x_continuous(labels=c("No Capacity", "1/4 of Internet", "1/2 of Internet", "3/4 of Internet", "All Interent")) +
+  geom_vline(mapping = 
+               aes(
+                 xintercept= 
+                   mean(
+                   x= v2smgovshutcap_mean)),
+            color="blue", 
+            linetype="dashed", 
+            size=1) +
+  annotate("text", x=2.5 ,y=73,label="mean",hjust=0, size=3, angle=90, color="blue") +
+  labs(title="Most Governments Can Shut Down Domestic Internet", subtitle = "Year: 2015", x="Shutdown Capacity", y = "Count", caption = "Source: V-Dem Dataset") +
+  theme_clean()+
+  theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 6))
+```
+In 2015, the vast majority of governments around the world had the capacity to shut down at least 1/4 of their domestic Internet, and on average, governments could shut down between 1/2 and 3/4 of their domestic Internet coverage. Despite their technical capacity, the overwhelming majority of governments do not shut down their Internet. From July 2015-June 2016, only 19 countries shut down parts of their domestic Internet for a combined total of 81 times (West, Darrell, "Internet Shutdowns Cost Countries $2.4 Billion Last Year," Center for Technology Innovation at Brookings, October 2016). What type of governments make this costly decision?
 
 # Is this about Regime Type?
+
 
 # Is this about State Capacity?
 
