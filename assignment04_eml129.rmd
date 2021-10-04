@@ -56,7 +56,6 @@ Working Paper No. 21. 6th edition. University of Gothenburg: Varieties of Democr
 
 ```{r import data}
 VDEM <- read_csv("V-Dem-CY-Full+Others-v11.1.csv")
-glimpse(VDEM)
 ```
 
 # The Issue: Government Internet Shutdowns
@@ -80,16 +79,40 @@ color = "black", fill= "white") +
             color="blue", 
             linetype="dashed", 
             size=1) +
-  annotate("text", x=2.5 ,y=73,label="mean",hjust=0, size=3, angle=90, color="blue") +
-  labs(title="Most Governments Can Shut Down Domestic Internet", subtitle = "Year: 2015", x="Shutdown Capacity", y = "Count", caption = "Source: V-Dem Dataset") +
+  annotate("text", x=2.5 ,y=55,label="mean",hjust=0, size=3, angle=90, color="blue") +
+  labs(title="Most Governments Can Shut Down Their Domestic Internet", subtitle = "Year: 2015", x="Shutdown Capacity", y = "Count", caption = "Source: V-Dem Dataset") +
   theme_clean()+
   theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 6))
 ```
+
+
 In 2015, the vast majority of governments around the world had the capacity to shut down at least 1/4 of their domestic Internet, and on average, governments could shut down between 1/2 and 3/4 of their domestic Internet coverage. Despite their technical capacity, the overwhelming majority of governments do not shut down their Internet. From July 2015-June 2016, only 19 countries shut down parts of their domestic Internet for a combined total of 81 times (West, Darrell, "Internet Shutdowns Cost Countries $2.4 Billion Last Year," Center for Technology Innovation at Brookings, October 2016). What type of governments make this costly decision?
 
 # Is this about Regime Type?
+```{r second graph}
+VDEM %>%
+  filter(year == 2015) %>%
+  mutate(inverse_v2smgovshut_mean= v2smgovshut_mean*-1) %>%
+  filter(!is.na(x= v2x_regime)) %>%
+  ggplot() +
+  geom_boxplot(mapping = aes (x = factor(v2x_regime), y= inverse_v2smgovshut_mean, fill = factor(v2x_regime))) +
+  scale_fill_manual(values = c("light grey", "light grey", "blue", "light grey")) +
+  scale_x_discrete(labels=c("Closed Autocracy", "Electoral Autocracy", "Electoral Democracy", "Liberal Democracy")) +
+  scale_y_continuous(labels = c("Never", "Rarely", "Somtimes", "Often")) +
+  labs(title="More Democratic States Shut Down Internet Less Often", subtitle = "Year: 2015", x="Regime Type", y = "Internet Shutdowns", caption = "Source: V-Dem Dataset") +
+  theme_clean()+
+  theme(legend.position = "none", plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 7), axis.text.y= element_text(size =7, angle =50))
+```
+
+The free Internet is has become closely associated wtih the concepts of freedom of expression and democracy (e.g., Warf 2011, Bak et al. 2018, Krcmaric 2019). Indeed, as the above graph demonstrates, there is certainly a correlation between regime type and Internet shutdown propensity. Nevertheless, there is a decent amount of variation within the same regime type.  Especially, so-called "electoral democracies" make it clear that just because a state is a "democracy," does not mean that it will never resort to an Internet shutdown.  In fact, India, a democracy, shuts down the Internet more frequently than any other country in the world ("#KeepItOn Report, Accessnow.org, 3 March 2021).
 
 
 # Is this about State Capacity?
+```{r third graph}
+
+```
 
 # An Indicator of Relative Weakness?
+```{r fourth graph}
+
+```
