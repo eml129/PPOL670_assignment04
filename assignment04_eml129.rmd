@@ -127,5 +127,66 @@ Due to the variation of Internet shutdown decisions within the same regime type,
 
 # An Indicator of Relative Weakness?
 ```{r fourth graph}
+VDEM_Aut <- VDEM %>%
+  filter(year == 2015) %>%
+  filter(v2x_regime <= 1)
 
+VDEM_Dem <- VDEM %>%
+  filter(year == 2015) %>%
+  filter(v2x_regime == 2)
+
+VDEM_LibDem <- VDEM %>%
+  filter(year == 2015) %>%
+  filter(v2x_regime == 3)
+
+VDEM %>%
+  filter (year == 2015) %>%
+  ggplot() +
+  geom_point(
+    data = VDEM_Aut, 
+    mapping = aes (
+      y = e_peinfmor, 
+      x = v2smgovshut_mean,
+      color = "Autocracy"))+
+  geom_smooth(
+    color = "red", 
+    data = VDEM_Aut, 
+    method = "lm", 
+    mapping = aes(
+      y = e_peinfmor, 
+      x = v2smgovshut_mean)) +
+    geom_point(
+      data = VDEM_Dem, 
+      mapping = aes (
+        y = e_peinfmor, 
+        x = v2smgovshut_mean,
+        color = "Electoral Democracy"),
+      shape = 18) +
+  geom_smooth(
+    color = 'black', 
+    data = VDEM_Dem, 
+    method = "lm", 
+    mapping = aes(
+      y = e_peinfmor, 
+      x = v2smgovshut_mean))+
+      geom_point(
+      data = VDEM_LibDem, 
+      mapping = aes (
+        y = e_peinfmor, 
+        x = v2smgovshut_mean,
+        color = "Liberal Democracy")) +
+  geom_smooth(
+    color = 'blue', 
+    data = VDEM_LibDem, 
+    method = "lm", 
+    mapping = aes(
+      y = e_peinfmor, 
+      x = v2smgovshut_mean)) +
+  scale_color_manual(values = c("red", "black", "blue")) +
+  scale_x_continuous(labels=c("Often", "Sometimes", "Rarely", "Never")) +
+  labs(title="Higher State Capacity Correlated with Lower Shutdown Frequency", subtitle = "Year: 2015", x="Internet Shutdown Frequency", y = "Under Age 1, Deaths per 1,000", caption = "Source: V-Dem Dataset", color = "Regime Type:") +
+  theme_clean()+
+  theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 7), axis.text.y= element_text(size =7), legend.title= element_text(size =8), legend.text = element_text(size=7), legend.margin = margin(0.1, 0.1, 0.1, 0.1, "cm"), legend.position = "bottom")
 ```
+
+The graph above suggests that as state capacity increases (as measured by infant mortality), governments are less likely to resort to domestic Internet shutdowns. This is in line with observations by civil war scholars such as Jacob and Akpan (2015) and Gohdes (2020) who highlight that there is a trade-off between Internet surveillance and disrupting threat communication by shutting down the Internet.  Internet surveillance is a more precise strategy, and arguably preferred, if a government can pair it with arrests.  A state with lower capacity, however, may not be able to conduct surveillance as well as stronger states and also may face difficulty in apprehending threats once identified through surveillance.  As such, these states with lower capacity may have less to lose by shutting down the Internet. Certainly, the above graph only presents a weak relationship.  One would need to include more control variables and conduct additional robustness checks on "infant mortality" as a measure of state capacity.
