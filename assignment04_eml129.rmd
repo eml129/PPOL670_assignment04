@@ -92,25 +92,38 @@ In 2015, the vast majority of governments around the world had the capacity to s
 ```{r second graph}
 VDEM %>%
   filter(year == 2015) %>%
-  mutate(inverse_v2smgovshut_mean= v2smgovshut_mean*-1) %>%
   filter(!is.na(x= v2x_regime)) %>%
   ggplot() +
-  geom_boxplot(mapping = aes (x = factor(v2x_regime), y= inverse_v2smgovshut_mean, fill = factor(v2x_regime))) +
+  geom_boxplot(mapping = aes (x = factor(v2x_regime), y= v2smgovshut_mean, fill = factor(v2x_regime))) +
   scale_fill_manual(values = c("light grey", "light grey", "blue", "light grey")) +
   scale_x_discrete(labels=c("Closed Autocracy", "Electoral Autocracy", "Electoral Democracy", "Liberal Democracy")) +
-  scale_y_continuous(labels = c("Never", "Rarely", "Somtimes", "Often")) +
+    scale_y_reverse(labels = c("Often", "Sometimes", "Rarely", "Never")) +
   labs(title="More Democratic States Shut Down Internet Less Often", subtitle = "Year: 2015", x="Regime Type", y = "Internet Shutdowns", caption = "Source: V-Dem Dataset") +
   theme_clean()+
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 7), axis.text.y= element_text(size =7, angle =50))
 ```
 
-The free Internet is has become closely associated wtih the concepts of freedom of expression and democracy (e.g., Warf 2011, Bak et al. 2018, Krcmaric 2019). Indeed, as the above graph demonstrates, there is certainly a correlation between regime type and Internet shutdown propensity. Nevertheless, there is a decent amount of variation within the same regime type.  Especially, so-called "electoral democracies" make it clear that just because a state is a "democracy," does not mean that it will never resort to an Internet shutdown.  In fact, India, a democracy, shuts down the Internet more frequently than any other country in the world ("#KeepItOn Report, Accessnow.org, 3 March 2021).
+The free Internet is has become closely associated wtih the concepts of freedom of expression and democracy (e.g., Warf 2011, Bak et al. 2018, Krcmaric 2019). Indeed, as the above graph demonstrates, there is certainly a correlation between regime type and Internet shutdown propensity.  Nevertheless, there is a decent amount of variation within the same regime type.  Especially, so-called "electoral democracies" make it clear that just because a state is a "democracy," does not mean that it will never resort to an Internet shutdown.  In fact, India, a democracy, is notorious for how often it shuts down the Internet within its borders (Nazmi, Shadab, "Why India Shuts Down the Internet More than any other Democracy," BBC, 19 December 2019). It is worth remembering that Internet shutdowns are relatively rare events even within autocracies.
 
 
 # Is this about State Capacity?
 ```{r third graph}
-
+VDEM %>%
+  filter(year == 2015) %>%
+  ggplot() +
+  geom_jitter(
+    mapping = aes(
+      x = factor(v2x_regime), 
+      y = e_peinfmor,
+      color = e_peinfmor), width = 0.1, height=0) +
+  scale_color_gradient(low = "green", high = "red") +
+  scale_x_discrete(labels=c("Closed Autocracy", "Electoral Autocracy", "Electoral Democracy", "Liberal Democracy")) +
+  labs(title="Regime Type is Correlated with State Capacity", subtitle = "2015 Infant Morality Rates by Regime Type", x="Regime Type", y = "Under Age 1, Deaths per 1,000", caption = "Source: V-Dem Dataset") +
+  theme_clean()+
+  theme(legend.position = "none",plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 7), axis.text.y= element_text(size =7, angle =50))
 ```
+
+Due to the variation of Internet shutdown decisions within the same regime type, I argue that we should consider other non-normative factors which could influence government Internet shutdown decisions. One such factor, state capacity, is strongly correlated but distinct from regime type as seen in the graph above. In the comparative government literature, infant mortality rate is often used a proxy for state capacity (e.g., Girod 2015, Hanson and Sigman 2021), and it has shown to operate separately from democratization level (Hanson 2015). As the graph above shows, infant mortality rates are lowest in liberal democracies, and there is significant variation within the other regime types. In other words, one should consider if strong states are less likely to shut down the internet than weaker states because they likely have the capacity to more effectively eliminate threats (for example, through pinpointed surveillance and arrest) than using the relative costly and blunt instrument of internet shutdowns.
 
 # An Indicator of Relative Weakness?
 ```{r fourth graph}
