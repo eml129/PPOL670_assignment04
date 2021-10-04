@@ -120,7 +120,7 @@ VDEM %>%
   scale_x_discrete(labels=c("Closed Autocracy", "Electoral Autocracy", "Electoral Democracy", "Liberal Democracy")) +
   labs(title="Regime Type is Correlated with State Capacity", subtitle = "2015 Infant Morality Rates by Regime Type", x="Regime Type", y = "Under Age 1, Deaths per 1,000", caption = "Source: V-Dem Dataset") +
   theme_clean()+
-  theme(legend.position = "none",plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 7), axis.text.y= element_text(size =7, angle =50))
+  theme(legend.position = "none",plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), axis.text.x= element_text(size = 7), axis.text.y= element_text(size =7))
 ```
 
 Due to the variation of Internet shutdown decisions within the same regime type, I argue that we should consider other non-normative factors which could influence government Internet shutdown decisions. One such factor, state capacity, is strongly correlated but distinct from regime type as seen in the graph above. In the comparative government literature, infant mortality rate is often used a proxy for state capacity (e.g., Girod 2015, Hanson and Sigman 2021), and it has shown to operate separately from democratization level (Hanson 2015). As the graph above shows, infant mortality rates are lowest in liberal democracies, and there is significant variation within the other regime types. In other words, one should consider if strong states are less likely to shut down the internet than weaker states because they likely have the capacity to more effectively eliminate threats (for example, through pinpointed surveillance and arrest) than using the relative costly and blunt instrument of internet shutdowns.
