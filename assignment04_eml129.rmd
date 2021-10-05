@@ -36,6 +36,9 @@ options(scipen = 999)
 library(ggthemes)
 ```
 
+# Github URL
+The Github URL for this project is https://github.com/eml129/PPOL670_assignment04 
+
 # Data
 Data throughout this assignment is from the V-Dem Dataset - Version 11.1 located at https://www.v-dem.net/en/data/data/v-dem-dataset-v111/#.
 
